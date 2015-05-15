@@ -56,33 +56,19 @@ function verify_appota_transaction($transaction_id, $amount, $state, $target) {
     $url = sprintf('https://pay.appota.com/payment/confirm?api_key=%s&lang=en', API_KEY);
     $fields = array('transaction_id' => $transaction_id);
     $result = call_curl_post($url, $fields);
-    
+
     if ($result['status'] == 1 and $result['data']['amount'] == $amount and $result['data']['state'] == $state and $result['data']['target']) {
         return true;
     }
     return false;
 }
 
-$fields = array('transaction_id' => 'C7454F92BC2B269A', 
-                'transaction_type' => 'CARD',
-                'status' => '1',
-                'sandbox' => '0',
-                'amount' => '10000',
-                'state'  => '',
-                'target' => "username:XuanXuXu|userid:2618078",
-                'currency' => "VND",
-                'country_code' => "VN", 
-                'card_code' => "ABCDEF",
-                'card_serial' => "123456",
-                'card_vendor' => "mobifone", 
-                'hash'       => "55be7cfd9517ad9217f8968e7ee268b8",);
-check_appota_card_payment($fields);
+if (isset($_POST['transaction_type'])) {
+    $transaction_type = $_POST['transaction_type'];
 
-if (isset($fields['transaction_type'])) {
-    $transaction_type = $fields['transaction_type'];
     switch($transaction_type){
         case 'CARD':
-            die(check_appota_card_payment());
+            die(check_appota_card_payment($_POST));
             break;
     }
 }
