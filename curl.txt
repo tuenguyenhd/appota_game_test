@@ -1,0 +1,8 @@
+curl 'http://192.168.3.167/appota_game_test/login_game.php?action=get_game_user&server_id=sv1&appota_user_id=1&appota_user_name=ga1'
+
+curl 'http://192.168.3.167/appota_game_test/login_game.php' -d "action=create_game_user&server_id=sv1&appota_user_id=5&appota_user_name=ga5"
+
+curl 'http://192.168.3.167/appota_game_test/check_appota_user.php' -d "appota_access_token=test&appota_user_id=5&appota_user_name=ga5"
+
+curl 'http://localhost/appota_game_test/check_appota_user.php' -d "appota_access_token=test&appota_user_id=5&appota_user_name=ga5"
+
