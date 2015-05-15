@@ -1,12 +1,3 @@
-<!-- 
-IPN function example: "check_appota_card_payment"
-When receive POST request from Appota server, check params, hash then verify with function "verify_appota_transaction"
-with params from the POST request and data from Appota confirm API
-When hash and verify are satisfied, make gold increment based on "amount" and "state" of the transaction
-For more detail about IPN function
-https://github.com/appota/ios-game-sdk/wiki/Passive-Confirmation-via-IPN
- -->
-
 <?php
 
 /*  

@@ -10,11 +10,12 @@ function get_game_user($server_id, $appota_userid, $appota_username) {
         $user_info = $list_user[0];        
         $response = array(
             "game_user_name" => $user_info[0],
+            "id" => $user_info[8],              
             "level" => $user_info[3],            
             "server_id" => $user_info[4],            
             "gold" => $user_info[5],            
             "diamon" => $user_info[6],                                    
-            "is_vip" => $user_info[7],                                                
+            "is_vip" => $user_info[7],                                                                  
             "error_code" => 0,
         );
     }

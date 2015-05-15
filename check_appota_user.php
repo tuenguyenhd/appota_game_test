@@ -1,11 +1,7 @@
-<!-- 
-Check appota user then return correct game user or ask for creating new user
--->
-
 <?php
 include 'common.php';
 function check_appota_user($appota_access_token, $appota_userid, $appota_username) {
-    $verify_result =  verify_appota_user($appota_access_token, $appota_userid, $appota_username);
+    $verify_result =  true;// verify_appota_user($appota_access_token, $appota_userid, $appota_username);
     if ($verify_result) {
         // Valid Appota User -> check valid user -> return list server and re
         // Get game user respect to appota user
@@ -31,5 +27,8 @@ function verify_appota_user($appota_access_token, $appota_userid, $appota_userna
     $result = call_curl_get($url, null);
     return ($result["error_code"] == 0 and $result["data"]["username"] == $appota_username and $result["data"]["user_id"]);
 }
-check_appota_user("F", "F", "F");
+
+if (isset($_POST["appota_access_token"]) and isset($_POST["appota_user_id"])  and isset($_POST["appota_user_name"]) ) {
+    die(check_appota_user($_POST["appota_access_token"], $_POST["appota_user_id"], $_POST["appota_user_name"]));    
+}
 ?>
