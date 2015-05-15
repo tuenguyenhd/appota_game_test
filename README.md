@@ -4,7 +4,7 @@ Appota game test (backend)
 ## Host
 http://192.168.3.167/appota_game_test
 
-##API
+## Login API
 1. Check Appota User
 	- Endpoint: `check_appota_user.php`
 	- Method: `POST`
@@ -58,5 +58,4 @@ http://192.168.3.167/appota_game_test
 		
 		
 
-		
 

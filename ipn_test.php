@@ -4,6 +4,8 @@ In browser use: http://localhost/ipn_test.php
  -->
 
 <?php
+include 'common.php';
+
 function test_card_ipn() {
     $fields = array('transaction_id' => 'C7454F92BC2B269A', 
                     'transaction_type' => 'CARD',
@@ -18,26 +20,9 @@ function test_card_ipn() {
                     'card_serial' => "123456",
                     'card_vendor' => "mobifone", 
                     'hash'       => "55be7cfd9517ad9217f8968e7ee268b8",);
-    print call_curl_post("http://localhost/ipn.php", $fields);
+    
+    print call_curl_post("http://localhost/appota_game_test/ipn.php", $fields);
 }
-
-// cURL function 
-function call_curl_post($url,$data_array){
-    $data = '';
-    foreach($data_array as $key=>$value) { $data .= $key.'='.$value.'&'; }
-    rtrim($data,'&');
-
-    $ch = curl_init($url);
-    curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-    curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false);
-    curl_setopt($ch,CURLOPT_POST,true);
-    curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
-    $info = curl_exec($ch);    
-    print $info;
-    curl_close($ch);    
-    return json_decode($info, true);
-}
-
 
 test_card_ipn();
 ?>

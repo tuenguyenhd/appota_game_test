@@ -1,5 +1,6 @@
 <?php
 
+include 'common.php';
 /*  
 *   Sample of a card transaction IPN
 *   Other type of transaction (Ebank, SMS, ...) can be verified with the same steps 
@@ -13,31 +14,32 @@ define('CLIENT_KEY', '');
 define('API_KEY', 'K-A164834-U00000-SMB02Y-809329F27CB81310');
 define('CLIENT_SECRET', 'f986eda4b0107fd3ab3b9f9242dc9b57054914725');
 
-function check_appota_card_payment() {
+function check_appota_card_payment($fields) {
         // check params
-        $trans_id           = $_POST['transaction_id'];
-        $trans_type         = $_POST['transaction_type'];
-        $status             = $_POST['status'];
-        $sandbox            = $_POST['sandbox'];
-        $amount             = $_POST['amount'];
-        $state              = $_POST['state'];
-        $target             = $_POST['target'];
-        $currency           = $_POST['currency'];
-        $country_code       = $_POST['country_code'];
-        $card_code          = $_POST['card_code'];
-        $card_serial        = $_POST['card_serial'];
-        $card_vendor        = $_POST['card_vendor'];
-        $hash               = $_POST['hash'];
-
+        $trans_id           = $fields['transaction_id'];
+        $trans_type         = $fields['transaction_type'];
+        $status             = $fields['status'];
+        $sandbox            = $fields['sandbox'];
+        $amount             = $fields['amount'];
+        $state              = $fields['state'];
+        $target             = $fields['target'];
+        $currency           = $fields['currency'];
+        $country_code       = $fields['country_code'];
+        $card_code          = $fields['card_code'];
+        $card_serial        = $fields['card_serial'];
+        $card_vendor        = $fields['card_vendor'];
+        $hash               = $fields['hash'];
+            
         // check transaction status
-        if ( $status != 1)
+        if ( $status != 1) {
             die('Transaction fail');
+        }
         
         // check hash
         $check_hash = md5( $amount . $card_code . $card_serial . $card_vendor . $country_code .
                             $currency . $sandbox . $state . $status . $target . $trans_id.
                             $trans_type . CLIENT_SECRET );
-
+                            
         if ( $check_hash != $hash )
             die('Check hash fail');
                         
@@ -61,21 +63,27 @@ function verify_appota_transaction($transaction_id, $amount, $state, $target) {
     return false;
 }
 
-// cURL function 
-function call_curl_post($url,$data_array){
-    $data = '';
-    foreach($data_array as $key=>$value) { $data .= $key.'='.$value.'&'; }
-    rtrim($data,'&');
+$fields = array('transaction_id' => 'C7454F92BC2B269A', 
+                'transaction_type' => 'CARD',
+                'status' => '1',
+                'sandbox' => '0',
+                'amount' => '10000',
+                'state'  => '',
+                'target' => "username:XuanXuXu|userid:2618078",
+                'currency' => "VND",
+                'country_code' => "VN", 
+                'card_code' => "ABCDEF",
+                'card_serial' => "123456",
+                'card_vendor' => "mobifone", 
+                'hash'       => "55be7cfd9517ad9217f8968e7ee268b8",);
+check_appota_card_payment($fields);
 
-    $ch = curl_init($url);
-    curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-    curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false);
-    curl_setopt($ch,CURLOPT_POST,true);
-    curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
-    $info = curl_exec($ch);    
-    curl_close($ch);    
-    return json_decode($info, true);
+if (isset($fields['transaction_type'])) {
+    $transaction_type = $fields['transaction_type'];
+    switch($transaction_type){
+        case 'CARD':
+            die(check_appota_card_payment());
+            break;
+    }
 }
-
-check_appota_card_payment();
 ?>
