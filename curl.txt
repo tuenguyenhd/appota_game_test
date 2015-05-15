@@ -4,5 +4,5 @@ curl 'http://192.168.3.167/appota_game_test/login_game.php' -d "action=create_ga
 
 curl 'http://192.168.3.167/appota_game_test/check_appota_user.php' -d "appota_access_token=test&appota_user_id=5&appota_user_name=ga5"
 
-curl 'http://localhost/appota_game_test/check_appota_user.php' -d "appota_access_token=test&appota_user_id=5&appota_user_name=ga5"
+curl 'http://localhost/appota_game_test/check_appota_user.php?appota_access_token=test&appota_user_id=5&appota_user_name=ga5'
 

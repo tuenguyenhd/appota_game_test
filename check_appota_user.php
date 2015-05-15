@@ -1,7 +1,7 @@
 <?php
 include 'common.php';
 function check_appota_user($appota_access_token, $appota_userid, $appota_username) {
-    $verify_result =  true;// verify_appota_user($appota_access_token, $appota_userid, $appota_username);
+    $verify_result =  verify_appota_user($appota_access_token, $appota_userid, $appota_username);
     if ($verify_result) {
         // Valid Appota User -> check valid user -> return list server and re
         // Get game user respect to appota user
