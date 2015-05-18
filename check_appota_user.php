@@ -1,9 +1,7 @@
 <?php
 include 'common.php';
 function check_appota_user($appota_access_token, $appota_userid, $appota_username) {
-    echo (time()."<br>");
     $verify_result =  verify_appota_user($appota_access_token, $appota_userid, $appota_username);
-    echo (time()."<br>");    
     if ($verify_result) {
         // Valid Appota User -> check valid user -> return list server and re
         // Get game user respect to appota user
@@ -30,7 +28,11 @@ function verify_appota_user($appota_access_token, $appota_userid, $appota_userna
     return ($result["error_code"] == 0 and $result["data"]["username"] == $appota_username and $result["data"]["user_id"]);
 }
 
-if (isset($_POST["appota_access_token"]) and isset($_POST["appota_user_id"])  and isset($_POST["appota_user_name"]) ) {
-    die(check_appota_user($_POST["appota_access_token"], $_POST["appota_user_id"], $_POST["appota_user_name"]));    
+$data = urldecode(file_get_contents("php://input"));
+$object = array();
+parse_str($data, $object);
+
+if (isset($object["appota_access_token"]) and isset($object["appota_user_id"])  and isset($object["appota_user_name"]) ) {
+   die(check_appota_user($object["appota_access_token"], $object["appota_user_id"], $object["appota_user_name"]));    
 }
 ?>

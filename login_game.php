@@ -46,11 +46,15 @@ function create_game_user($server_id, $appota_userid, $appota_username) {
       return $response;
 }
 
-if (isset($_GET["action"]) and $_GET["action"] == "get_game_user") {
-    die(get_game_user($_GET["server_id"], $_GET["appota_user_id"], $_GET["appota_user_name"]));
+$data = urldecode(file_get_contents("php://input"));
+$object = array();
+parse_str($data, $object);
+
+if (isset($object["action"]) and $object["action"] == "get_game_user") {
+    die(get_game_user($object["server_id"], $object["appota_user_id"], $object["appota_user_name"]));
 }
 
-if (isset($_POST["action"]) and $_POST["action"] == "create_game_user") {
-    die(create_game_user($_POST["server_id"], $_POST["appota_user_id"], $_POST["appota_user_name"]));    
+if (isset($object["action"]) and $object["action"] == "create_game_user") {
+    die(create_game_user($object["server_id"], $object["appota_user_id"], $object["appota_user_name"]));    
 }
 ?>

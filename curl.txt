@@ -4,6 +4,6 @@ curl 'http://192.168.3.167/appota_game_test/login_game.php' -d "action=create_ga
 
 curl 'http://192.168.3.167/appota_game_test/check_appota_user.php' -d "appota_access_token=test&appota_user_id=5&appota_user_name=ga5"
 
-curl 'http://localhost/appota_game_test/check_appota_user.php' -d "appota_access_token=A-A170006-U13346664-4RRIFV-ABE4BFD0B05E52F2&appota_user_id=13346664&appota_user_name=ga4049176"
+curl -X POST --compressed -H 'Accept-Language: en;q=1' -H 'Content-Type: application/json' -H 'User-Agent: AppotaiOSGameSDK 4.0 40' -H 'Accept: application/json'  'http://localhost/appota_game_test/check_appota_user.php' -d "appota_access_token=A-A170006-U13346664-4RRIFV-ABE4BFD0B05E52F2&appota_user_id=13346664&appota_user_name=ga4049176"
 
 curl 'http://localhost/appota_game_test/ipn.php' -d "transaction_id=C7454F92BC2B269A&transaction_type=CARD&status=1&sandbox=0&amount=10000&state=&target=username:XuanXuXu|userid:2618078&currency=VND&country_code=VN&card_code=ABCDEF&card_serial=123456&card_vendor=mobifone&hash=55be7cfd9517ad9217f8968e7ee268b8&"
