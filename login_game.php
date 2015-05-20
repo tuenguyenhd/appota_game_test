@@ -48,7 +48,17 @@ function create_game_user($server_id, $appota_userid, $appota_username) {
 
 $data = urldecode(file_get_contents("php://input"));
 $object = array();
-parse_str($data, $object);
+if ($data) {
+    parse_str($data, $object);
+}
+else {
+    if ($_GET) {
+        $object = $_GET;
+    }
+    if ($_POST) {
+        $object = $_POST;
+    }
+}
 
 if (isset($object["action"]) and $object["action"] == "get_game_user") {
     die(get_game_user($object["server_id"], $object["appota_user_id"], $object["appota_user_name"]));

@@ -27,6 +27,7 @@ function query_db($query) {
 
 function select_db($query) {
     $result = query_db($query);
+    $list_server = array();    
     while($row = $result->fetch_row()){
         $list_server[] = $row;
     }
